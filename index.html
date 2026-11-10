@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>AI Speaking Pair Practice – A Family Event</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef5ff;--card:#fff;--ink:#12305a;--mute:#5a7094;--blue:#1f6feb;--blue2:#d9e8ff;--line:#c9dcf7;--ok:#1a8f5a;--warn:#b86e00;--bad:#c63a3a;--rec:#e5484d;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1b33;--card:#16264a;--ink:#e8f0ff;--mute:#9fb4d9;--blue:#5b9bff;--blue2:#1e3566;--line:#2b4378;--ok:#4cc58d;--warn:#f0b04a;--bad:#ff7b7b;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e1b33;--card:#16264a;--ink:#e8f0ff;--mute:#9fb4d9;--blue:#5b9bff;--blue2:#1e3566;--line:#2b4378;--ok:#4cc58d;--warn:#f0b04a;--bad:#ff7b7b;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:500 clamp(17px,1.5vw,21px)/1.5 Nunito,system-ui,sans-serif}
+h1,h2,h3{font-family:"Baloo 2",Nunito,sans-serif;margin:0;line-height:1.1}
+.wrap{max-width:1180px;margin:0 auto;padding:16px}
+button{font:inherit;font-weight:700;border:0;border-radius:14px;padding:12px 20px;cursor:pointer;background:var(--blue);color:#fff;min-height:48px}
+button.sec{background:var(--blue2);color:var(--ink)}button.ghost{background:transparent;color:var(--blue);border:2px solid var(--line)}
+button.rec{background:var(--rec)}button:disabled{opacity:.45;cursor:not-allowed}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+input{font:inherit;width:100%;padding:13px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink)}
+label{display:block;font-weight:700;margin:14px 0 6px}
+.card{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:20px}
+.top{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:14px}
+.badge{display:inline-block;padding:4px 12px;border-radius:99px;font-size:.8em;font-weight:700;background:var(--blue2)}
+.badge.demo{background:#ffe3a3;color:#5c3a00}.badge.live{background:#c8f1de;color:#0d5a37}
+.start{max-width:640px;margin:6vh auto}.start h1{font-size:clamp(2.2rem,6vw,3.6rem);color:var(--blue)}
+.start h2{font-size:clamp(1.4rem,3.5vw,2rem);margin:6px 0 10px}
+.prog{display:flex;gap:6px;margin:6px 0}.prog i{flex:1;height:12px;border-radius:9px;background:var(--blue2)}
+.prog i.cur{background:repeating-linear-gradient(45deg,var(--blue),var(--blue) 6px,#7fb0ff 6px,#7fb0ff 12px)}.prog i.done{background:var(--ok)}
+.kw{text-align:center;padding:18px 10px}.kw .ic{font-size:clamp(3rem,7vw,5rem)}
+.kw h2{font-size:clamp(2.2rem,6vw,4.4rem);color:var(--blue)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:820px){.cols{grid-template-columns:1fr}}
+.role{border-top:8px solid var(--blue)}.role.b{border-top-color:#17a2b8}.role.off{opacity:.55}
+.role h3{font-size:1.5rem}.row{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.tx{background:var(--bg);border-radius:12px;padding:10px 14px;min-height:56px;font-style:italic}
+.hint{background:#fff7dc;color:#4a3500;border-radius:12px;padding:10px 14px;margin-top:8px}
+.dot{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--rec);animation:p 1s infinite}@keyframes p{50%{opacity:.25}}
+@media(prefers-reduced-motion:reduce){.dot{animation:none}}
+.fb h3{font-size:1.4rem}.score{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.score div{flex:1;min-width:100px;background:var(--bg);border-radius:12px;padding:8px;text-align:center}.score b{font-size:1.4em;display:block}
+.score .tot{background:var(--blue);color:#fff}
+.fb ul{margin:4px 0 10px;padding-left:22px}.fb h4{margin:10px 0 2px;color:var(--blue)}
+.msg{padding:12px 16px;border-radius:12px;margin:10px 0;background:#ffe3e3;color:#6b1414}.msg.info{background:var(--blue2);color:var(--ink)}
+table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px solid var(--line);text-align:left}
+.bars{display:grid;gap:10px}.bar{display:grid;grid-template-columns:150px 1fr 54px;gap:8px;align-items:center}
+.bar span.t{height:16px;border-radius:8px;display:block;background:var(--blue2);overflow:hidden}.bar span.t i{display:block;height:100%;background:var(--blue)}.bar span.t i.b{background:#17a2b8}
+dialog{border:2px solid var(--line);border-radius:20px;background:var(--card);color:var(--ink);max-width:min(760px,94vw);max-height:88vh;overflow:auto}
+dialog::backdrop{background:rgba(10,25,60,.55)}pre{background:var(--bg);padding:12px;border-radius:10px;overflow-x:auto;font-size:.8em}
+.hide{display:none!important}.small{font-size:.85em;color:var(--mute)}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<dialog id="dlg"></dialog>
+<script>
+const TASKS=[
+{kw:"WHAT FAMILY EVENT?",ic:"🎂",q:"What family event do you often take part in?",a:"We often take part in birthday parties."},
+{kw:"WHEN?",ic:"📅",q:"When does it usually take place?",a:"It usually takes place on..."},
+{kw:"WHERE?",ic:"📍",q:"Where does it usually take place?",a:"It usually takes place at/in..."},
+{kw:"WHO?",ic:"👨‍👩‍👧‍👦",q:"Who takes part in this event?",a:"My family members, such as..., take part in it."},
+{kw:"WHAT ACTIVITIES?",ic:"🎈",q:"What activities do you do at this event?",a:"We usually..."},
+{kw:"WHY DO YOU LIKE IT?",ic:"❤️",q:"Why do you like this event?",a:"I like this event because..."}];
+const CRIT=[["pron","Pronunciation",4],["ideas","Ideas",3],["task","Task Fulfillment",3]];
+let S={screen:"start",names:{A:"",B:""},cls:"",cur:0,res:TASKS.map(()=>({A:{},B:{},fb:null,hint:{A:false,B:false}})),
+cfg:load(),rec:null,busy:false,err:""};
+function load(){try{return JSON.parse(localStorage.getItem("spp_cfg"))||{mode:"demo",url:""}}catch(e){return{mode:"demo",url:""}}}
+function save(){try{localStorage.setItem("spp_cfg",JSON.stringify(S.cfg))}catch(e){}}
+const $=s=>document.querySelector(s);
+const esc=t=>String(t??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const live=()=>S.cfg.mode==="live"&&S.cfg.url;
+const modeBadge=()=>live()?'<span class="badge live">Live AI mode</span>':'<span class="badge demo">DEMO MODE – sample feedback, not a real assessment</span>';
+
+/* ---------- recording ---------- */
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+async function startRec(who){
+ S.err="";
+ if(!navigator.mediaDevices||!window.MediaRecorder){S.err="This browser cannot record audio. Please use a recent Chrome, Edge or Safari.";return render()}
+ try{
+  const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+  const mr=new MediaRecorder(stream),chunks=[];
+  mr.ondataavailable=e=>e.data.size&&chunks.push(e.data);
+  let sr=null,text="";
+  if(SR){sr=new SR();sr.lang="en-US";sr.continuous=true;sr.interimResults=false;
+   sr.onresult=e=>{for(let i=e.resultIndex;i<e.results.length;i++)if(e.results[i].isFinal)text+=e.results[i][0].transcript+" "};
+   sr.onend=()=>{if(S.rec&&S.rec.who===who&&S.rec.active&&!S.rec.paused)try{sr.start()}catch(e){}};
+   try{sr.start()}catch(e){}}
+  mr.onstop=()=>{stream.getTracks().forEach(t=>t.stop());
+   const blob=new Blob(chunks,{type:mr.mimeType||"audio/webm"});
+   const r=S.res[S.cur][who];if(r.url)URL.revokeObjectURL(r.url);
+   Object.assign(r,{blob,url:URL.createObjectURL(blob),transcript:text.trim(),noSR:!SR,done:true});
+   S.res[S.cur].fb=null;S.rec=null;render()};
+  S.rec={who,mr,sr,active:true,paused:false,getText:()=>text};
+  mr.start();render();
+ }catch(e){S.err=e.name==="NotAllowedError"?(window.self!==window.top?"This preview window is not allowed to use the microphone. Download this HTML file and open it in Chrome (or host it on your own website), then try again.":"Microphone blocked. Click the lock icon in the address bar, allow the microphone, then try again."):"Could not start the microphone: "+e.message;render()}
+}
+function stopRec(){if(!S.rec)return;S.rec.active=false;try{S.rec.sr&&S.rec.sr.stop()}catch(e){}S.rec.mr.stop()}
+function pauseRec(){const r=S.rec;if(!r)return;if(r.paused){r.mr.resume();r.paused=false;try{r.sr&&r.sr.start()}catch(e){}}else{r.mr.pause();r.paused=true;try{r.sr&&r.sr.stop()}catch(e){}}render()}
+function retry(who){const r=S.res[S.cur][who];if(r.url)URL.revokeObjectURL(r.url);S.res[S.cur][who]={};S.res[S.cur].fb=null;render()}
+function toggleHint(who){const h=S.res[S.cur].hint;h[who]=!h[who];render()}
+
+/* ---------- assessment ---------- */
+const b64=blob=>new Promise((ok,no)=>{const f=new FileReader();f.onload=()=>ok(f.result.split(",")[1]);f.onerror=()=>no(new Error("read"));f.readAsDataURL(blob)});
+async function evaluate(){
+ const t=S.res[S.cur];S.busy=true;S.err="";render();
+ try{
+  if(!live()){await new Promise(r=>setTimeout(r,900));t.fb=demoFb(t);t.fb.demo=true}
+  else{
+   const body={keyword:TASKS[S.cur].kw,taskNumber:S.cur+1,level:"A2-B1",rubric:{pronunciation:4,ideas:3,taskFulfillment:3},
+    questioner:{name:S.names.A,transcript:t.A.transcript,audioMimeType:t.A.blob.type,audioBase64:await b64(t.A.blob),usedHint:t.hint.A},
+    answerer:{name:S.names.B,transcript:t.B.transcript,audioMimeType:t.B.blob.type,audioBase64:await b64(t.B.blob),usedHint:t.hint.B}};
+   const res=await fetch(S.cfg.url,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
+   if(!res.ok)throw new Error("The assessment server answered with error "+res.status+".");
+   const d=await res.json();
+   if(!d.A||!d.B)throw new Error("The server reply is missing results for Student A or Student B.");
+   t.fb={A:norm(d.A),B:norm(d.B)};
+  }
+ }catch(e){S.err=e instanceof TypeError?"Network problem: the assessment server could not be reached. Check the internet and the endpoint address in Setup, then try again.":e.message}
+ S.busy=false;render();
+}
+function norm(x){const n=v=>(v==null||v==="")?null:Math.max(0,Number(v));
+ return{unclear:!!x.unclear,reason:x.reason||"",pron:n(x.pronunciation),ideas:n(x.ideas),task:n(x.taskFulfillment),
+ strengths:x.strengths||[],improve:x.areasForImprovement||[],suggest:x.suggestedImprovement||"",vi:x.vietnamese||""}}
+function demoFb(t){const mk=(who,p,i,k)=>({pron:null,demoPron:p,ideas:i,task:k,unclear:false,
+ strengths:["DEMO: This is example text. A real assessment would comment on what "+esc(S.names[who])+" actually said."],
+ improve:["DEMO: Real feedback would list specific words, sounds and grammar points here."],
+ suggest:"DEMO: A corrected version of the student's own sentence would appear here.",vi:"(Demo) Phản hồi mẫu, không phải đánh giá thật."});
+ return{A:mk("A",3,2,3),B:mk("B",3,2,2)}}
+
+/* ---------- totals ---------- */
+function tot(f){let s=0,m=0;CRIT.forEach(([k,,mx])=>{const v=f[k];if(v!=null&&!f.demoPron||(f.demoPron&&k!=="pron"&&v!=null)){s+=v;m+=mx}});return{s,m}}
+function totals(who){const o={pron:{s:0,m:0},ideas:{s:0,m:0},task:{s:0,m:0}};
+ S.res.forEach(r=>{if(!r.fb||r.fb[who].unclear)return;CRIT.forEach(([k,,mx])=>{const v=r.fb[who][k];if(v!=null){o[k].s+=v;o[k].m+=mx}})});return o}
+
+/* ---------- views ---------- */
+function render(){
+ const el=$("#app");
+ if(S.screen==="start")el.innerHTML=startV();else if(S.screen==="task")el.innerHTML=taskV();else el.innerHTML=finalV();
+}
+function startV(){return`<div class="start card">
+<div class="top">${modeBadge()}<button class="ghost" onclick="setup()">Setup</button></div>
+<h1>AI SPEAKING PAIR PRACTICE</h1><h2>A FAMILY EVENT</h2>
+<p>Work with your partner. Ask and answer six questions about a family event.</p>
+<label for="na">Student A's name (Questioner)</label><input id="na" value="${esc(S.names.A)}" autocomplete="off">
+<label for="nb">Student B's name (Answerer)</label><input id="nb" value="${esc(S.names.B)}" autocomplete="off">
+<label for="nc">Class (optional)</label><input id="nc" value="${esc(S.cls)}" autocomplete="off">
+${S.err?`<div class="msg">${esc(S.err)}</div>`:""}
+<p><button style="width:100%;font-size:1.5em;padding:18px" onclick="begin()">START</button></p></div>`}
+function begin(){const a=$("#na").value.trim(),b=$("#nb").value.trim();
+ if(!a||!b){S.names={A:a,B:b};S.cls=$("#nc").value;S.err="Please type both students' names.";return render()}
+ S.names={A:a,B:b};S.cls=$("#nc").value.trim();S.err="";S.screen="task";S.cur=0;render()}
+function progV(){const n=S.cur+1,d=S.res.filter(r=>r.fb).length;
+ return`<div class="card" style="padding:12px 18px"><div class="top" style="margin:0"><b>Question ${n}/6</b><span>${d} of 6 tasks completed</span></div>
+ <div class="prog" role="progressbar" aria-valuenow="${d}" aria-valuemin="0" aria-valuemax="6">${S.res.map((r,i)=>`<i class="${r.fb?"done":i===S.cur?"cur":""}" title="${r.fb?"Completed":i===S.cur?"In progress":"Not started"}"></i>`).join("")}</div></div>`}
+function roleV(who){const t=S.res[S.cur],r=t[who],T=TASKS[S.cur],isA=who==="A";
+ const recNow=S.rec&&S.rec.who===who,otherNeedsFirst=!isA&&!t.A.done,locked=otherNeedsFirst||(S.rec&&!recNow)||S.busy;
+ const instr=isA?"Student A: Think of a question and ask your partner.":"Student B: Listen carefully and answer your partner's question.";
+ return`<div class="card role ${isA?"":"b"} ${otherNeedsFirst?"off":""}"><h3>${esc(S.names[who])} <span class="small">${isA?"Questioner":"Answerer"}</span></h3>
+ <p>${instr}</p>
+ <div class="row">
+ ${recNow?`<button class="rec" onclick="stopRec()">■ Stop</button><button class="sec" onclick="pauseRec()">${S.rec.paused?"Resume":"Pause"}</button><span><span class="dot"></span> ${S.rec.paused?"Paused":"Recording…"}</span>`
+ :r.done?`<button class="sec" onclick="retry('${who}')" ${S.busy||S.rec?"disabled":""}>Record again</button>`
+ :`<button onclick="startRec('${who}')" ${locked?"disabled":""}>🎤 START SPEAKING</button>`}
+ <button class="ghost" onclick="toggleHint('${who}')">${t.hint[who]?"Hide hint":"HINT"}</button></div>
+ ${t.hint[who]?`<div class="hint">${isA?"Question hint: ":"Answer hint: "}<b>${esc(isA?T.q:T.a)}</b></div>`:""}
+ ${r.done?`<audio controls src="${r.url}" style="width:100%;margin-top:8px"></audio>
+ <div class="tx" aria-label="Transcript">${r.transcript?esc(r.transcript):(r.noSR?"Speech-to-text is not supported in this browser. The audio was saved.":"No words recognized. Listen to the audio or record again.")}</div>`:""}
+ </div>`}
+function fbCard(who){const f=S.res[S.cur].fb[who],name=esc(S.names[who]);
+ if(f.unclear)return`<div class="card fb"><h3>${name}</h3><div class="msg">The audio was unclear or incomplete${f.reason?": "+esc(f.reason):""}. Please record again. No score was given.</div></div>`;
+ const T=tot(f),pr=f.demoPron!=null?`<b>Demo</b>`:(f.pron==null?"<b>Not assessed</b>":`<b>${f.pron}/4</b>`);
+ return`<div class="card fb"><h3>Student name: ${name}</h3><div class="score">
+ <div>Pronunciation${pr}</div><div>Ideas<b>${f.ideas??"–"}/3</b></div><div>Task Fulfillment<b>${f.task??"–"}/3</b></div>
+ <div class="tot">TOTAL<b>${T.s}/${T.m}</b></div></div>
+ ${f.pron==null&&f.demoPron==null?`<p class="small">Pronunciation was not assessed because no audio assessment was returned. The total uses the other criteria only.</p>`:""}
+ <h4>Strengths</h4><ul>${f.strengths.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
+ <h4>Areas for improvement</h4><ul>${f.improve.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
+ <h4>Suggested improvement</h4><p>${esc(f.suggest)}</p>${f.vi?`<p class="small">🇻🇳 ${esc(f.vi)}</p>`:""}</div>`}
+function taskV(){const t=S.res[S.cur],T=TASKS[S.cur],ready=t.A.done&&t.B.done&&!S.rec;
+ const bad=t.fb&&(t.fb.A.unclear||t.fb.B.unclear);
+ return`<div class="top">${modeBadge()}<div class="row" style="margin:0">
+ <button class="ghost" onclick="setup()">Setup</button><button class="ghost" onclick="showTx()">All transcripts</button>
+ <button class="ghost" onclick="restart()">Restart</button></div></div>
+ ${progV()}
+ <div class="card kw" style="margin:14px 0"><div class="ic" aria-hidden="true">${T.ic}</div><h2>${T.kw}</h2><p class="small">Think of a question and ask your partner.</p></div>
+ ${S.err?`<div class="msg">${esc(S.err)}</div>`:""}
+ <div class="cols">${roleV("A")}${roleV("B")}</div>
+ <div class="card" style="margin-top:16px;text-align:center">
+ ${t.fb?"":`<p><b>SUBMIT BOTH RECORDINGS FOR AI ASSESSMENT</b></p>`}
+ ${t.fb&&!t.fb.demo?"":t.fb?`<p class="msg info">DEMO MODE: the scores below are sample feedback, not a real assessment.</p>`:""}
+ <button style="font-size:1.2em" onclick="evaluate()" ${ready&&!S.busy?"":"disabled"}>${S.busy?"Evaluating…":t.fb?"Evaluate again":"AI EVALUATE BOTH STUDENTS"}</button>
+ ${ready||t.fb?"":`<p class="small">Available after both students have recorded.</p>`}</div>
+ ${t.fb?`<div class="cols" style="margin-top:16px">${fbCard("A")}${fbCard("B")}</div>`:""}
+ <div class="row" style="justify-content:space-between;margin-top:16px">
+ <button class="sec" onclick="go(-1)" ${S.cur===0||S.rec?"disabled":""}>← Previous question</button>
+ <button onclick="go(1)" ${t.fb&&!bad&&!S.rec?"":"disabled"}>${S.cur===5?"SEE FINAL RESULTS":"NEXT QUESTION →"}</button></div>`}
+function go(d){if(S.cur===5&&d===1){S.screen="final";S.err="";return render()}S.cur=Math.max(0,Math.min(5,S.cur+d));S.err="";render();scrollTo(0,0)}
+
+function finalV(){const A=totals("A"),B=totals("B");
+ const sum=o=>CRIT.reduce((a,[k])=>({s:a.s+o[k].s,m:a.m+o[k].m}),{s:0,m:0});
+ const best=o=>{const c=CRIT.filter(([k])=>o[k].m).map(([k,n])=>[n,o[k].s/o[k].m]);return c.length?[c.reduce((a,b)=>b[1]>a[1]?b:a)[0],c.reduce((a,b)=>b[1]<a[1]?b:a)[0]]:["–","–"]};
+ const ba=best(A),bb=best(B),sa=sum(A),sb=sum(B);
+ const demo=S.res.some(r=>r.fb&&r.fb.demo),gaps=S.res.filter(r=>!r.fb||r.fb.A.unclear||r.fb.B.unclear).length;
+ const avg=(o,k)=>o[k].m?(o[k].s/(o[k].m/CRIT.find(c=>c[0]===k)[2])).toFixed(1):"–";
+ const per=(o,who)=>{const items=S.res.filter(r=>r.fb&&!r.fb[who].unclear);const pick=k=>items.flatMap(r=>r.fb[who][k]).filter(Boolean).slice(0,4);
+  return`<h4>Strengths</h4><ul>${pick("strengths").map(x=>`<li>${esc(x)}</li>`).join("")||"<li>–</li>"}</ul><h4>Areas for improvement</h4><ul>${pick("improve").map(x=>`<li>${esc(x)}</li>`).join("")||"<li>–</li>"}</ul>`};
+ const stu=(who,o,s,lab)=>`<div class="card fb role ${who==="B"?"b":""}"><h3>STUDENT ${who} – ${lab}: ${esc(S.names[who])}</h3>
+ <table><tr><th>Criterion</th><th>Total</th><th>Average</th></tr>${CRIT.map(([k,n,mx])=>`<tr><td>${n}</td><td>${o[k].m?o[k].s+" / "+o[k].m:"Not assessed"}</td><td>${avg(o,k)} / ${mx}</td></tr>`).join("")}
+ <tr><th>Overall</th><th>${s.s} / ${s.m||60}</th><th>${s.m?(s.s/s.m*10).toFixed(1):"–"} / 10</th></tr></table>${per(o,who)}</div>`;
+ const bars=CRIT.map(([k,n])=>{const p=o=>o[k].m?Math.round(o[k].s/o[k].m*100):0;
+  return`<div class="bar"><span>${n}</span><span><span class="t"><i style="width:${p(A)}%"></i></span><span class="t" style="margin-top:4px"><i class="b" style="width:${p(B)}%"></i></span></span><span class="small">${p(A)}%<br>${p(B)}%</span></div>`}).join("");
+ return`<div class="top"><h1>Final results</h1><div class="row" style="margin:0"><button class="ghost" onclick="S.screen='task';S.cur=5;render()">Back to questions</button><button class="ghost" onclick="showTx()">All transcripts</button><button class="sec" onclick="window.print()">Print</button><button onclick="restart()">Restart</button></div></div>
+ ${demo?`<div class="msg info">DEMO MODE: these results come from sample feedback and are not a genuine AI assessment.</div>`:""}
+ ${gaps?`<div class="msg">${gaps} question(s) have no valid assessment yet and are not counted. Go back and record or evaluate them again.</div>`:""}
+ <div class="cols">${stu("A",A,sa,"QUESTIONER")}${stu("B",B,sb,"ANSWERER")}</div>
+ <div class="card" style="margin-top:16px"><h3>Performance comparison</h3>
+ <table><tr><th></th><th>${esc(S.names.A)}</th><th>${esc(S.names.B)}</th></tr>
+ <tr><td>Total score</td><td>${sa.s} / ${sa.m||60}</td><td>${sb.s} / ${sb.m||60}</td></tr>
+ <tr><td>Average score (out of 10)</td><td>${sa.m?(sa.s/sa.m*10).toFixed(1):"–"}</td><td>${sb.m?(sb.s/sb.m*10).toFixed(1):"–"}</td></tr>
+ <tr><td>Best-performing criterion</td><td>${ba[0]}</td><td>${bb[0]}</td></tr>
+ <tr><td>Needs most improvement</td><td>${ba[1]}</td><td>${bb[1]}</td></tr></table>
+ <h3 style="margin-top:18px">Criteria compared (% of points)</h3>
+ <p class="small"><span style="color:var(--blue)">■</span> ${esc(S.names.A)} (top bar) &nbsp; <span style="color:#17a2b8">■</span> ${esc(S.names.B)} (bottom bar)</p>
+ <div class="bars">${bars}</div>
+ <p class="small">This report is for practice, so both students can improve. It does not name a winner.</p></div>`}
+
+/* ---------- dialogs ---------- */
+function open(html){const d=$("#dlg");d.innerHTML=html+`<p><button class="sec" onclick="$('#dlg').close()">Close</button></p>`;d.showModal()}
+function showTx(){open(`<h2>All transcripts</h2>`+S.res.map((r,i)=>`<p><b>${i+1}. ${TASKS[i].kw}</b><br>${esc(S.names.A)}: <i>${esc(r.A.transcript||(r.A.done?"(no text)":"–"))}</i><br>${esc(S.names.B)}: <i>${esc(r.B.transcript||(r.B.done?"(no text)":"–"))}</i></p>`).join(""))}
+function restart(){open(`<h2>Restart the activity?</h2><p>All recordings, transcripts and scores will be deleted.</p><p><button onclick="doRestart()">Yes, restart</button></p>`)}
+function doRestart(){S.res.forEach(r=>{[r.A,r.B].forEach(x=>x.url&&URL.revokeObjectURL(x.url))});
+ S.res=TASKS.map(()=>({A:{},B:{},fb:null,hint:{A:false,B:false}}));S.cur=0;S.screen="start";S.err="";$("#dlg").close();render()}
+function setup(){open(`<h2>Setup</h2>
+<label for="cm">Assessment mode</label><select id="cm" style="font:inherit;padding:10px;width:100%;border-radius:10px"><option value="demo" ${live()?"":"selected"}>Demo mode (sample feedback)</option><option value="live" ${S.cfg.mode==="live"?"selected":""}>Live AI mode (needs a backend)</option></select>
+<label for="cu">Backend endpoint (HTTPS)</label><input id="cu" value="${esc(S.cfg.url)}" placeholder="https://your-server.example.com/api/assess">
+<p><button onclick="S.cfg={mode:$('#cm').value,url:$('#cu').value.trim()};save();$('#dlg').close();render()">Save setup</button></p>
+<h3>How to connect the AI</h3>
+<ol><li>Build a small server (for example a serverless function). Keep your AI API key there as a secret. Never put it in this file.</li>
+<li>The page sends a POST with JSON: keyword, taskNumber, and for <code>questioner</code> and <code>answerer</code>: name, transcript, audioMimeType, audioBase64, usedHint.</li>
+<li>Your server sends both audio clips to an audio-capable AI model with the rubric (Pronunciation 4, Ideas 3, Task Fulfillment 3, level A2–B1). It must judge the answer against Student A's actual question and ignore whether hints were used.</li>
+<li>Reply with JSON for <code>A</code> and <code>B</code>:</li></ol>
+<pre>{"A":{"pronunciation":3,"ideas":2,"taskFulfillment":3,
+ "strengths":["..."],"areasForImprovement":["..."],
+ "suggestedImprovement":"...","vietnamese":"..."},
+ "B":{ ... }}</pre>
+<p class="small">If audio is unclear, return <code>{"unclear":true,"reason":"..."}</code> for that student. If pronunciation could not be judged, set it to <code>null</code>; the page then shows "Not assessed". The server must allow CORS from the site hosting this page.</p>
+<p class="small">Speech-to-text uses the browser (best in Chrome or Edge). It only shows the transcript and is never used to score pronunciation.</p>`)}
+render();
+</script>
+</body>
+</html>
